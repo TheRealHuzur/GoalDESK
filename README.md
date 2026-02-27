@@ -1,6 +1,6 @@
 # GoalDESK
 
-Teil der **DESK-Suite** – persönliche Ziel-Visualisierung mit 6 Chart-Typen.
+Teil der **DESK-Suite** – persönliche Ziel-Visualisierung mit 5 Chart-Typen.
 
 ## Setup
 
@@ -51,7 +51,6 @@ src/
 │   │       ├── BarChart.tsx    # Horizontaler Fortschrittsbalken
 │   │       ├── PieChart.tsx    # Tortendiagramm
 │   │       ├── DonutChart.tsx  # Ringdiagramm mit Prozentzahl
-│   │       ├── GaugeChart.tsx  # Halbkreis-Tacho mit Nadel
 │   │       ├── MilestoneBar.tsx # Balken mit 25/50/75/100%-Markierungen
 │   │       └── HeroNumber.tsx  # Große Zahl mit Mini-Ring
 │   ├── layout/
@@ -103,7 +102,6 @@ src/
 | `bar` | Horizontaler Fortschrittsbalken mit Gradient |
 | `pie` | Klassisches Tortendiagramm (Ist vs. Rest) |
 | `donut` | Ringdiagramm mit Prozentzahl in der Mitte |
-| `gauge` | Halbkreis-Tacho mit animierter Nadel |
 | `milestone` | Balken mit Meilenstein-Markierungen bei 25/50/75/100% |
 | `hero` | Große Zahl mit Label und Mini-Fortschrittsring |
 
