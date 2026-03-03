@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        # These match variables in the .env file in the same directory as docker-compose.yml
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+        VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
+    container_name: desk-goaldesk-app
+    restart: unless-stopped
+    # We expose port 80 internally, so Nginx Proxy Manager can connect via the Docker network
+    expose:
+      - "80"
+    # Port 8080 mapping is optional if NPM is on same docker network
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
