@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Goal } from '@/types/goal';
 import { BarChart } from './charts/BarChart';
 import { PieChart } from './charts/PieChart';

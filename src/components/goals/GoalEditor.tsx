@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { Goal, ChartType, GoalInsert } from '@/types/goal';
 import { useGoals } from '@/hooks/useGoals';
 import { Modal } from '@/components/ui/Modal';

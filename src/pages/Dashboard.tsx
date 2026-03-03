@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGoals } from '@/hooks/useGoals';
 import type { Goal } from '@/types/goal';
 import { GoalCard } from '@/components/goals/GoalCard';

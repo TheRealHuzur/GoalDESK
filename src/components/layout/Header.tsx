@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase, isDemoMode } from '@/lib/supabase';
 import { Button } from '@/components/ui/Button';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { PieChart as RechartsPie, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface PieChartProps {
