@@ -12,23 +12,30 @@ interface GoalCardProps {
 
 function ChartRenderer({ goal }: { goal: Goal }) {
   const props = {
+    start: goal.start_value ?? 0,
     value: goal.current_value,
     target: goal.target_value,
     label: goal.metric_label,
   };
 
   switch (goal.chart_type) {
-    case 'bar':       return <BarChart {...props} />;
-    case 'pie':       return <PieChart {...props} />;
-    case 'donut':     return <DonutChart {...props} />;
+    case 'bar': return <BarChart {...props} />;
+    case 'pie': return <PieChart {...props} />;
+    case 'donut': return <DonutChart {...props} />;
     case 'milestone': return <MilestoneBar {...props} />;
-    case 'hero':      return <HeroNumber {...props} />;
-    default:          return <BarChart {...props} />;
+    case 'hero': return <HeroNumber {...props} />;
+    default: return <BarChart {...props} />;
   }
 }
 
 export function GoalCard({ goal, onEdit }: GoalCardProps) {
-  const pct = Math.min(Math.round((goal.current_value / goal.target_value) * 100), 100);
+  const startVal = goal.start_value ?? 0;
+  const totalDiff = goal.target_value - startVal;
+  const currentDiff = goal.current_value - startVal;
+  let pct = 0;
+  if (totalDiff !== 0) {
+    pct = Math.min(Math.max(Math.round((currentDiff / totalDiff) * 100), 0), 100);
+  }
 
   return (
     <article className="bg-slate-800 border border-slate-700 rounded-2xl p-5 flex flex-col gap-4 hover:border-slate-600 transition-colors">

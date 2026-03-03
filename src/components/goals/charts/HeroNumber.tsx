@@ -1,13 +1,17 @@
 
 interface HeroNumberProps {
+  start: number;
   value: number;
   target: number;
   label: string;
   compact?: boolean;
 }
 
-export function HeroNumber({ value, target, label, compact = false }: HeroNumberProps) {
-  const pct = Math.min((value / target) * 100, 100);
+export function HeroNumber({ start, value, target, label, compact = false }: HeroNumberProps) {
+  const totalDiff = target - start;
+  const currentDiff = value - start;
+  const rawPct = totalDiff !== 0 ? (currentDiff / totalDiff) * 100 : 0;
+  const pct = Math.min(Math.max(rawPct, 0), 100);
   const displayPct = Math.round(pct);
 
   const r = compact ? 18 : 52;

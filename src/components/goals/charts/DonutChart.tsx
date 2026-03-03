@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 interface DonutChartProps {
+  start: number;
   value: number;
   target: number;
   label: string;
@@ -9,8 +10,11 @@ interface DonutChartProps {
 
 const COLORS = ['#38BDF8', '#334155'];
 
-export function DonutChart({ value, target, label, compact = false }: DonutChartProps) {
-  const pct = Math.min((value / target) * 100, 100);
+export function DonutChart({ start, value, target, label, compact = false }: DonutChartProps) {
+  const totalDiff = target - start;
+  const currentDiff = value - start;
+  const rawPct = totalDiff !== 0 ? (currentDiff / totalDiff) * 100 : 0;
+  const pct = Math.min(Math.max(rawPct, 0), 100);
   const rest = 100 - pct;
   const displayPct = Math.round(pct);
 

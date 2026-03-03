@@ -1,5 +1,6 @@
 
 interface MilestoneBarProps {
+  start: number;
   value: number;
   target: number;
   label: string;
@@ -8,8 +9,11 @@ interface MilestoneBarProps {
 
 const MILESTONES = [25, 50, 75, 100];
 
-export function MilestoneBar({ value, target, label, compact = false }: MilestoneBarProps) {
-  const pct = Math.min((value / target) * 100, 100);
+export function MilestoneBar({ start, value, target, label, compact = false }: MilestoneBarProps) {
+  const totalDiff = target - start;
+  const currentDiff = value - start;
+  const rawPct = totalDiff !== 0 ? (currentDiff / totalDiff) * 100 : 0;
+  const pct = Math.min(Math.max(rawPct, 0), 100);
   const displayPct = Math.round(pct);
 
   return (
@@ -52,11 +56,10 @@ export function MilestoneBar({ value, target, label, compact = false }: Mileston
                   style={{ left: `${m}%`, transform: 'translateX(-50%)' }}
                 >
                   <div
-                    className={`w-2 h-2 rounded-full border-2 ${
-                      reached
+                    className={`w-2 h-2 rounded-full border-2 ${reached
                         ? 'bg-sky-400 border-sky-400'
                         : 'bg-slate-800 border-slate-600'
-                    }`}
+                      }`}
                   />
                   <span className={`text-xs mt-0.5 ${reached ? 'text-sky-400' : 'text-slate-600'}`}>
                     {m}%

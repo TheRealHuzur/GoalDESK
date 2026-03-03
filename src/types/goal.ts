@@ -6,6 +6,7 @@ export interface Goal {
   title: string;
   description?: string;
   metric_label: string;
+  start_value: number;
   target_value: number;
   current_value: number;
   chart_type: ChartType;

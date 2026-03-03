@@ -1,13 +1,17 @@
 
 interface BarChartProps {
-  value: number;     // current_value
-  target: number;    // target_value
-  label: string;     // metric_label
+  start: number;
+  value: number;
+  target: number;
+  label: string;
   compact?: boolean;
 }
 
-export function BarChart({ value, target, label, compact = false }: BarChartProps) {
-  const pct = Math.min((value / target) * 100, 100);
+export function BarChart({ start, value, target, label, compact = false }: BarChartProps) {
+  const totalDiff = target - start;
+  const currentDiff = value - start;
+  const rawPct = totalDiff !== 0 ? (currentDiff / totalDiff) * 100 : 0;
+  const pct = Math.min(Math.max(rawPct, 0), 100);
   const displayPct = Math.round(pct);
 
   return (

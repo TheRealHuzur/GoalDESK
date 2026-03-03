@@ -1,6 +1,7 @@
 import { PieChart as RechartsPie, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface PieChartProps {
+  start: number;
   value: number;
   target: number;
   label: string;
@@ -33,8 +34,11 @@ function ProgressLabel({ cx, cy, midAngle, outerRadius, percent, index }: LabelP
   );
 }
 
-export function PieChart({ value, target, label, compact = false }: PieChartProps) {
-  const pct = Math.min((value / target) * 100, 100);
+export function PieChart({ start, value, target, label, compact = false }: PieChartProps) {
+  const totalDiff = target - start;
+  const currentDiff = value - start;
+  const rawPct = totalDiff !== 0 ? (currentDiff / totalDiff) * 100 : 0;
+  const pct = Math.min(Math.max(rawPct, 0), 100);
 
   // ── Compact: pure SVG pie — bypasses ResponsiveContainer sizing issues ────
   if (compact) {
@@ -55,8 +59,8 @@ export function PieChart({ value, target, label, compact = false }: PieChartProp
     const slicePath = pct >= 99.9
       ? `M ${cx} ${cy} m -${r} 0 a ${r} ${r} 0 1 1 ${r * 2} 0 a ${r} ${r} 0 1 1 -${r * 2} 0`
       : pct < 0.1
-      ? ''
-      : `M ${cx} ${cy} L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${ex.toFixed(2)} ${ey.toFixed(2)} Z`;
+        ? ''
+        : `M ${cx} ${cy} L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${ex.toFixed(2)} ${ey.toFixed(2)} Z`;
 
     return (
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>

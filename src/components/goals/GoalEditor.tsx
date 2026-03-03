@@ -17,17 +17,18 @@ interface GoalEditorProps {
 }
 
 const CHART_TYPES: { type: ChartType; label: string; description: string }[] = [
-  { type: 'bar',       label: 'Balken',       description: 'Horizontaler Fortschrittsbalken' },
-  { type: 'pie',       label: 'Torte',        description: 'Klassisches Tortendiagramm' },
-  { type: 'donut',     label: 'Donut',        description: 'Ringdiagramm mit Prozentzahl' },
+  { type: 'bar', label: 'Balken', description: 'Horizontaler Fortschrittsbalken' },
+  { type: 'pie', label: 'Torte', description: 'Klassisches Tortendiagramm' },
+  { type: 'donut', label: 'Donut', description: 'Ringdiagramm mit Prozentzahl' },
   { type: 'milestone', label: 'Meilensteine', description: 'Balken mit 25/50/75/100%-Markierungen' },
-  { type: 'hero',      label: 'Hero-Zahl',    description: 'Große Zahl mit Fortschrittsring' },
+  { type: 'hero', label: 'Hero-Zahl', description: 'Große Zahl mit Fortschrittsring' },
 ];
 
 interface FormState {
   title: string;
   description: string;
   metric_label: string;
+  start_value: string;
   target_value: string;
   current_value: string;
   chart_type: ChartType;
@@ -37,19 +38,20 @@ const EMPTY_FORM: FormState = {
   title: '',
   description: '',
   metric_label: '',
+  start_value: '0',
   target_value: '',
   current_value: '0',
   chart_type: 'bar',
 };
 
-function PreviewChart({ type, value, target, label }: { type: ChartType; value: number; target: number; label: string }) {
-  const props = { value, target, label, compact: true };
+function PreviewChart({ type, start, value, target, label }: { type: ChartType; start: number; value: number; target: number; label: string }) {
+  const props = { start, value, target, label, compact: true };
   switch (type) {
-    case 'bar':       return <BarChart {...props} />;
-    case 'pie':       return <PieChart {...props} />;
-    case 'donut':     return <DonutChart {...props} />;
+    case 'bar': return <BarChart {...props} />;
+    case 'pie': return <PieChart {...props} />;
+    case 'donut': return <DonutChart {...props} />;
     case 'milestone': return <MilestoneBar {...props} />;
-    case 'hero':      return <HeroNumber {...props} />;
+    case 'hero': return <HeroNumber {...props} />;
   }
 }
 
@@ -69,6 +71,7 @@ export function GoalEditor({ open, onClose, editingGoal }: GoalEditorProps) {
         title: editingGoal.title,
         description: editingGoal.description ?? '',
         metric_label: editingGoal.metric_label,
+        start_value: String(editingGoal.start_value ?? 0),
         target_value: String(editingGoal.target_value),
         current_value: String(editingGoal.current_value),
         chart_type: editingGoal.chart_type,
@@ -89,10 +92,13 @@ export function GoalEditor({ open, onClose, editingGoal }: GoalEditorProps) {
     const newErrors: Partial<Record<keyof FormState, string>> = {};
     if (!form.title.trim()) newErrors.title = 'Titel erforderlich';
     if (!form.metric_label.trim()) newErrors.metric_label = 'Kennzahl-Label erforderlich';
+    const sv = parseFloat(form.start_value);
+    if (form.start_value === '' || isNaN(sv)) newErrors.start_value = 'Wert erforderlich';
     const tv = parseFloat(form.target_value);
-    if (!form.target_value || isNaN(tv) || tv <= 0) newErrors.target_value = 'Zielwert muss größer als 0 sein';
+    if (form.target_value === '' || isNaN(tv)) newErrors.target_value = 'Wert erforderlich';
+    if (!isNaN(sv) && !isNaN(tv) && sv === tv) newErrors.target_value = 'Start und Ziel müssen sich unterscheiden';
     const cv = parseFloat(form.current_value);
-    if (form.current_value === '' || isNaN(cv) || cv < 0) newErrors.current_value = 'Aktueller Wert muss 0 oder größer sein';
+    if (form.current_value === '' || isNaN(cv)) newErrors.current_value = 'Wert erforderlich';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -106,6 +112,7 @@ export function GoalEditor({ open, onClose, editingGoal }: GoalEditorProps) {
         title: form.title.trim(),
         description: form.description.trim() || undefined,
         metric_label: form.metric_label.trim(),
+        start_value: parseFloat(form.start_value),
         target_value: parseFloat(form.target_value),
         current_value: parseFloat(form.current_value),
         chart_type: form.chart_type,
@@ -137,8 +144,9 @@ export function GoalEditor({ open, onClose, editingGoal }: GoalEditorProps) {
     }
   };
 
-  const previewValue = Math.max(0, parseFloat(form.current_value) || 0);
-  const previewTarget = Math.max(1, parseFloat(form.target_value) || 100);
+  const previewStart = parseFloat(form.start_value) || 0;
+  const previewValue = parseFloat(form.current_value) || 0;
+  const previewTarget = form.target_value === '' ? 100 : parseFloat(form.target_value) || 100;
   const previewLabel = form.metric_label || 'Einheiten';
 
   return (
@@ -167,35 +175,40 @@ export function GoalEditor({ open, onClose, editingGoal }: GoalEditorProps) {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-1">
-            <Input
-              label="Kennzahl-Label"
-              value={form.metric_label}
-              onChange={(e) => set('metric_label', e.target.value)}
-              placeholder="z.B. km"
-              error={errors.metric_label}
-            />
-          </div>
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            label="Kennzahl-Label"
+            value={form.metric_label}
+            onChange={(e) => set('metric_label', e.target.value)}
+            placeholder="z.B. km, kg"
+            error={errors.metric_label}
+          />
+          <Input
+            label="Startwert"
+            type="number"
+            step="any"
+            value={form.start_value}
+            onChange={(e) => set('start_value', e.target.value)}
+            placeholder="0"
+            error={errors.start_value}
+          />
+          <Input
+            label="Aktueller Wert"
+            type="number"
+            step="any"
+            value={form.current_value}
+            onChange={(e) => set('current_value', e.target.value)}
+            placeholder="75"
+            error={errors.current_value}
+          />
           <Input
             label="Zielwert"
             type="number"
-            min="0"
             step="any"
             value={form.target_value}
             onChange={(e) => set('target_value', e.target.value)}
             placeholder="1000"
             error={errors.target_value}
-          />
-          <Input
-            label="Aktueller Wert"
-            type="number"
-            min="0"
-            step="any"
-            value={form.current_value}
-            onChange={(e) => set('current_value', e.target.value)}
-            placeholder="0"
-            error={errors.current_value}
           />
         </div>
 
@@ -220,6 +233,7 @@ export function GoalEditor({ open, onClose, editingGoal }: GoalEditorProps) {
                   <div className="w-full flex items-center justify-center h-12 pointer-events-none">
                     <PreviewChart
                       type={type}
+                      start={previewStart}
                       value={previewValue}
                       target={previewTarget}
                       label={previewLabel}
