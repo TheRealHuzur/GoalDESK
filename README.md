@@ -2,6 +2,8 @@
 
 Teil der **DESK-Suite** – persönliche Ziel-Visualisierung mit 5 Chart-Typen.
 
+🌐 **Live-Version:** [goaldesk.wissen-und-werkzeug.de](https://goaldesk.wissen-und-werkzeug.de)
+
 ## Setup
 
 ### 1. Abhängigkeiten installieren
