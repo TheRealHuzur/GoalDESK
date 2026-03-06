@@ -97,3 +97,77 @@
     transform: translateY(0);
   }
 }
+
+/* ── Logo ── */
+.logo {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: normal;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+/* ── Hero ── */
+.hero {
+  margin-bottom: 52px;
+  text-align: center;
+}
+
+.hero-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, var(--teal), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section title ── */
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: auto;
+}
+
+.footer a {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

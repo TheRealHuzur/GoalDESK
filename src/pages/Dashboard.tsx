@@ -31,15 +31,27 @@ export function Dashboard() {
 
   return (
     <>
-      {/* Page header */}
-      <div className="flex items-center justify-between mb-8">
+      {/* Hero Section */}
+      <div className="hero mt-4">
+        <div className="logo justify-center mb-2">
+          <span className="text-desk-text">Goal</span>
+          <span className="text-desk-sky">DESK</span>
+        </div>
+        <div className="hero-label">Zielerreichungs-Tool</div>
+        <h1>
+          Tracke deine <span>Ziele</span>
+        </h1>
+      </div>
+
+      {/* Page header (Section title) */}
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-extrabold tracking-tight text-desk-text">Meine Ziele</h2>
-          <p className="text-slate-500 text-sm mt-0.5">
+          <div className="section-title">Meine Ziele</div>
+          <p className="text-desk-text-muted text-[13px] mt-1">
             {goals.length === 0 ? 'Noch keine Ziele definiert' : `${goals.length} Ziel${goals.length !== 1 ? 'e' : ''}`}
           </p>
         </div>
-        <Button onClick={openNew} size="md">
+        <Button onClick={openNew} size="sm">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
