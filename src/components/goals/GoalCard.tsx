@@ -38,7 +38,7 @@ export function GoalCard({ goal, onEdit }: GoalCardProps) {
   }
 
   return (
-    <article className="bg-desk-card border border-desk-border rounded-[14px] p-7 flex flex-col gap-4 transition-colors fadeUp">
+    <article className="bg-card border border-desk-border rounded-[14px] p-7 flex flex-col gap-4 transition-colors fadeUp">
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
@@ -55,7 +55,7 @@ export function GoalCard({ goal, onEdit }: GoalCardProps) {
       </div>
 
       {/* Chart */}
-      <div className="h-[220px] flex items-center justify-center overflow-hidden">
+      <div className="h-[140px] flex items-center justify-center overflow-hidden">
         <ChartRenderer goal={goal} />
       </div>
 

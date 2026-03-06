@@ -52,7 +52,7 @@ export function Auth() {
         </div>
 
         {/* Card */}
-        <div className="bg-desk-card border border-desk-border rounded-[14px] p-6 shadow-desk transition-colors duration-300">
+        <div className="bg-card border border-desk-border rounded-[14px] p-6 shadow-desk transition-colors duration-300">
           {/* Tab switcher */}
           <div className="flex rounded-[10px] bg-desk-bg-3 p-1 mb-6 border border-desk-border">
             {(['login', 'register'] as Mode[]).map((m) => (
