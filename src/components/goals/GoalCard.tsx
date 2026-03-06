@@ -38,18 +38,18 @@ export function GoalCard({ goal, onEdit }: GoalCardProps) {
   }
 
   return (
-    <article className="bg-slate-800 border border-slate-700 rounded-2xl p-5 flex flex-col gap-4 hover:border-slate-600 transition-colors">
+    <article className="bg-desk-card border border-desk-border rounded-[14px] p-7 flex flex-col gap-4 transition-colors fadeUp">
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-slate-100 truncate" title={goal.title}>
+          <h3 className="font-extrabold tracking-tight text-desk-text truncate" title={goal.title}>
             {goal.title}
           </h3>
           {goal.description && (
-            <p className="text-sm text-slate-500 line-clamp-2 mt-0.5">{goal.description}</p>
+            <p className="text-sm text-desk-text-muted line-clamp-2 mt-0.5">{goal.description}</p>
           )}
         </div>
-        <span className="shrink-0 text-xs font-semibold px-2 py-1 bg-sky-400/10 text-sky-400 rounded-full">
+        <span className="shrink-0 text-xs font-semibold px-2 py-1 bg-desk-sky/10 text-desk-sky rounded-full">
           {pct}%
         </span>
       </div>
@@ -64,7 +64,7 @@ export function GoalCard({ goal, onEdit }: GoalCardProps) {
         <button
           onClick={() => onEdit(goal)}
           title="Bearbeiten"
-          className="text-slate-500 hover:text-sky-400 transition-colors px-2 py-1 rounded-lg hover:bg-slate-700"
+          className="text-desk-text-muted hover:text-desk-sky transition-colors px-2 py-1 rounded-lg hover:bg-desk-bg-3"
         >
           <span className="material-symbols-outlined" style={{ fontSize: 16 }}>edit_square</span>
         </button>

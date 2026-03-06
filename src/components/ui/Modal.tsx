@@ -44,7 +44,7 @@ export function Modal({ open, onClose, title, children, maxWidth = 'max-w-lg' }:
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-700 shrink-0">
-          <h2 className="text-lg font-semibold text-slate-100">{title}</h2>
+          <h2 className="text-lg font-extrabold tracking-tight text-desk-text">{title}</h2>
           <button
             onClick={onClose}
             className="text-slate-400 hover:text-slate-100 transition-colors p-1 rounded-lg hover:bg-slate-700"

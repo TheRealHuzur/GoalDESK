@@ -14,17 +14,17 @@ export function Input({ label, error, id, className = '', ...props }: InputProps
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-slate-300">
+        <label htmlFor={inputId} className="text-[12px] font-semibold tracking-widest uppercase text-desk-text-muted">
           {label}
         </label>
       )}
       <input
         id={inputId}
         className={[
-          'bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-slate-100',
-          'placeholder:text-slate-500 text-sm',
-          'focus:outline-none focus:ring-2 focus:ring-sky-400/50 focus:border-sky-400',
-          'transition-colors duration-150',
+          'bg-desk-input-bg border border-desk-border rounded-[8px] px-3 py-2 text-desk-text',
+          'placeholder:text-desk-text-muted text-[13.5px]',
+          'focus:outline-none focus:border-desk-teal focus:shadow-[0_0_0_3px_rgba(14,151,173,0.12)]',
+          'transition-all duration-200',
           error ? 'border-red-500' : '',
           className,
         ].join(' ')}
@@ -40,7 +40,7 @@ export function Textarea({ label, error, id, className = '', ...props }: Textare
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-slate-300">
+        <label htmlFor={inputId} className="text-[12px] font-semibold tracking-widest uppercase text-desk-text-muted">
           {label}
         </label>
       )}
@@ -48,10 +48,10 @@ export function Textarea({ label, error, id, className = '', ...props }: Textare
         id={inputId}
         rows={3}
         className={[
-          'bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-slate-100',
-          'placeholder:text-slate-500 text-sm resize-none',
-          'focus:outline-none focus:ring-2 focus:ring-sky-400/50 focus:border-sky-400',
-          'transition-colors duration-150',
+          'bg-desk-input-bg border border-desk-border rounded-[8px] px-3 py-2 text-desk-text',
+          'placeholder:text-desk-text-muted text-[13.5px] resize-none',
+          'focus:outline-none focus:border-desk-teal focus:shadow-[0_0_0_3px_rgba(14,151,173,0.12)]',
+          'transition-all duration-200',
           error ? 'border-red-500' : '',
           className,
         ].join(' ')}

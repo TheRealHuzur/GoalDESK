@@ -40,21 +40,21 @@ export function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-desk-bg flex items-center justify-center p-4 transition-colors duration-300">
       <div className="w-full max-w-sm">
         {/* Branding */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">
-            <span className="text-white">Goal</span>
-            <span className="text-sky-400">DESK</span>
+          <h1 className="text-3xl font-extrabold tracking-tight text-desk-text">
+            <span className="text-desk-text">Goal</span>
+            <span className="text-desk-sky">DESK</span>
           </h1>
-          <p className="text-slate-500 text-sm mt-1">Persönliche Ziel-Visualisierung</p>
+          <p className="text-desk-text-muted text-sm mt-1">Persönliche Ziel-Visualisierung</p>
         </div>
 
         {/* Card */}
-        <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-2xl">
+        <div className="bg-desk-card border border-desk-border rounded-[14px] p-6 shadow-desk transition-colors duration-300">
           {/* Tab switcher */}
-          <div className="flex rounded-lg bg-slate-900 p-1 mb-6">
+          <div className="flex rounded-[10px] bg-desk-bg-3 p-1 mb-6 border border-desk-border">
             {(['login', 'register'] as Mode[]).map((m) => (
               <button
                 key={m}
