@@ -124,7 +124,7 @@ export function Auth() {
                 await supabase.auth.signInWithOAuth({
                   provider: 'google',
                   options: {
-                    redirectTo: 'https://goaldesk.wissen-und-werkzeug.de'
+                    redirectTo: 'https://desk-suite.wissen-und-werkzeug.de/auth/callback?next=https://goaldesk.wissen-und-werkzeug.de'
                   }
                 });
               }}
